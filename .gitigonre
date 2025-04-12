@@ -1,0 +1,58 @@
+# ---------------------
+# Visual Studio 專案
+# ---------------------
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# ---------------------
+# Build & 發行產物
+# ---------------------
+bin/
+obj/
+out/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# ---------------------
+# NuGet Packages
+# ---------------------
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# ---------------------
+# 使用者設定檔與快取
+# ---------------------
+*.userosscache
+*.ide
+
+# ---------------------
+# ASP.NET Core 環境設定
+# ---------------------
+appsettings.Development.json
+secrets.json
+
+# ---------------------
+# LibMan - 前端套件管理（如果有用）
+# ---------------------
+wwwroot/lib/
+
+# ---------------------
+# NPM / 前端資源（如有使用）
+# ---------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-lock.yaml
+
+# ---------------------
+# macOS / Windows 系統檔
+# ---------------------
+.DS_Store
+Thumbs.db
