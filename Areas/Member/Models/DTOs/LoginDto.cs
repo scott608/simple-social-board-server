@@ -1,18 +1,12 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SimpleSocialBoardServer.Models.Entities
+namespace SimpleSocialBoardServer.Areas.Member.Models.DTOs
 {
-
-
-    public class User
+    public class LoginDto
     {
         /// 使用者主鍵。
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
         /// 帳號。
-        [Required]
         public required string Account { get; set; }
 
         /// 姓名。

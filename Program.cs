@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
-using simple_social_board_server.Data;
+using SimpleSocialBoardServer.Data;
 using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//新增服務註冊
-builder.Services.AddControllersWithViews();
+//新增服務註冊， 只註冊 API Controlle
+// builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+// Swagger 文件註冊
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 Env.Load();
 
@@ -30,24 +35,21 @@ builder.Services.AddDbContext<MainDbContext>(options =>
 // 建立 App
 var app = builder.Build();
 
-// 設定 HTTP 請求管道
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+    // 開啟 Swagger UI
+    app.UseSwagger();
+    app.UseSwaggerUI();
+} 
 
- 
+//HTTPS 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+// app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllers();
 
 app.Run();

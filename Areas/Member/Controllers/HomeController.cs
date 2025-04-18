@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using simple_social_board_server.Models;
+using SimpleSocialBoardServer.Models;
 
-namespace simple_social_board_server.Controllers;
+namespace SimpleSocialBoardServer.Controllers;
 
 public class HomeController : Controller
 {

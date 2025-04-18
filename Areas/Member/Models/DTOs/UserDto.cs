@@ -1,5 +1,5 @@
 
-namespace SimpleSocialBoardServer.Models.DTOs
+namespace SimpleSocialBoardServer.Areas.Member.Models.DTOs
 {
     public class UserDto
     {

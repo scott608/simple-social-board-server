@@ -1,4 +1,4 @@
-namespace simple_social_board_server.Models;
+namespace SimpleSocialBoardServer.Models;
 
 public class ErrorViewModel
 {

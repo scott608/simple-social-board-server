@@ -54,6 +54,8 @@ dotnet run
 
 應用程式將可於 `https://localhost:5001` 存取。
 
+swagger http://localhost:5182/swagger/index.html
+
 ## 專案結構
 
 - **Controllers**: 處理 HTTP 請求與回應。
