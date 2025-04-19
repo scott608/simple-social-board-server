@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocialBoardServer.Areas.Member.Models.DTOs;
 using SimpleSocialBoardServer.Areas.Member.Services;
+using SimpleSocialBoardServer.Core.ViewModel;
 
 namespace SimpleSocialBoardServer.Areas.Member.Controllers
 {
@@ -20,19 +21,18 @@ namespace SimpleSocialBoardServer.Areas.Member.Controllers
         {
                 if (!ModelState.IsValid)
                 {
-                    _logger.LogWarning("註冊資料驗證失敗");
-                    return BadRequest(ModelState);
+                    _logger.LogWarning("Error 400:註冊資料驗證失敗");
+                    return BadRequest(ApiResponse<string>.Fail("Error 400:註冊資料驗證失敗" + ModelState));
                 }
-                 _logger.LogWarning("帳號 {Account} 已存在", dto.Account);
                 var success = await _userService.RegisterAsync(dto);
 
                 if (success == null)
                 {
-                    _logger.LogWarning("帳號 {Account} 已存在", dto.Account);
-                    return Conflict(new { message = "帳號已存在" });
+                    _logger.LogWarning("Error 409:帳號 {Account} 已存在", dto.Account);
+                    return Conflict(ApiResponse<string>.Fail("帳號已存在"));
                 }
                 _logger.LogInformation("帳號 {Account} 註冊成功", dto.Account);
-                return Ok(new { message = "註冊成功" });
+                return Ok(ApiResponse<string>.Ok("註冊成功"));
         }
 
         //登入
@@ -44,9 +44,9 @@ namespace SimpleSocialBoardServer.Areas.Member.Controllers
             var user = _userService.FindByAccountAsync(dto.Account).Result;
             if (user == null || user.Password != dto.Password)
             {
-                return Unauthorized(new { message = "帳號或密碼錯誤" });
+                return Unauthorized(ApiResponse<string>.Fail("Error 401:帳號或密碼錯誤"));
             }
-            return Ok("Login");
+            return Ok(ApiResponse<string>.Ok("登入成功"));
         }
 
 
