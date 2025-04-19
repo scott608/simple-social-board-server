@@ -9,6 +9,9 @@ namespace SimpleSocialBoardServer.Areas.Member.Models.DTOs
         /// 帳號。
         public required string Account { get; set; }
 
+        /// 密碼。
+        public required string Password { get; set; }
+
         /// 姓名。
         public required string Name { get; set; }
 

@@ -54,7 +54,7 @@ namespace SimpleSocialBoardServer.Areas.Member.Models.Entities
         [Required]
         [Column("gender")]
         // 性別
-        public Gender Gender { get; set; } = Gender.Male;
+        public string Gender { get; set; } = "Male";
 
         [Required]
         [MaxLength(20)]

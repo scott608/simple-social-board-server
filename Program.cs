@@ -1,12 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleSocialBoardServer.Data;
 using DotNetEnv;
+using SimpleSocialBoardServer.Areas.Member.Services;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //新增服務註冊， 只註冊 API Controlle
 // builder.Services.AddControllersWithViews();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opt =>
+{
+    // 啟用 Enum 的字串轉換支援
+    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
+builder.Services.AddScoped<UserService>(); 
+
 // Swagger 文件註冊
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
