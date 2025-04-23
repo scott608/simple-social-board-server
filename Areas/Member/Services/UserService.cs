@@ -39,10 +39,10 @@ namespace SimpleSocialBoardServer.Areas.Member.Services
             return user;
         }
         //取得使用者資料(帳號)
-        public async Task<UserEntity?> FindByAccountAsync(string account)
+        public Task<UserEntity?> FindByAccount(string account)
         {
             // 使用 EF Core 的 LINQ 查詢來獲取使用者資料
-            return await _db.Users
+            return _db.Users
                 .FirstOrDefaultAsync(u => u.Account == account);
         }
 

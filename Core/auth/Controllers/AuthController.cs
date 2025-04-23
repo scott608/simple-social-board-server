@@ -6,13 +6,12 @@ using SimpleSocialBoardServer.Core.ViewModel;
 using SimpleSocialBoardServer.Settings;
 using SimpleSocialBoardServer.Shared.Helpers;
 
-namespace SimpleSocialBoardServer.Core.Controllers
+namespace SimpleSocialBoardServer.Core.auth.Controllers
 {
 
 
 
-    [Area("Auth")]
-    [Route("[area]/[controller]")]
+    [Route("[controller]")]
     public class AuthController (AuthService authService,UserService userService, ILogger<AuthController> logger) : ControllerBase
     {
         private readonly UserService _userService = userService ?? throw new ArgumentNullException(nameof(userService));
@@ -26,7 +25,7 @@ namespace SimpleSocialBoardServer.Core.Controllers
         {
             // 這裡可以添加登入邏輯，例如驗證帳號和密碼
             // 如果登入成功，返回 JWT 或其他認證令牌
-            var user = _userService.FindByAccountAsync(dto.Account).Result;
+            var user = _userService.FindByAccount(dto.Account).Result;
             if (user != null && user.Password == dto.Password)
             {
                 //登入成功，回傳token

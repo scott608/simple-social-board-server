@@ -74,6 +74,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// 設定 CORS 策略  !!!!!!!暫定全開，後續再調
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
+
 var mainServer = Environment.GetEnvironmentVariable("Main_DB_Server");
 var mainDb = Environment.GetEnvironmentVariable("Main_DB_Name");
 var mainUser = Environment.GetEnvironmentVariable("Main_DB_user");
@@ -103,10 +113,14 @@ if (app.Environment.IsDevelopment())
 } 
 
 //HTTPS 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 // app.UseStaticFiles();  //靜態資源
 
 app.UseRouting();
+
+// 啟用 AllowAllOrigins CORS 策略
+app.UseCors("AllowAllOrigins");
+
 // 啟用身分驗證，⚠️ 非常重要，需先於 Authorization
 app.UseAuthentication(); 
 //啟用授權
