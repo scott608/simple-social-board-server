@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocialBoardServer.Areas.Member.Models.DTOs;
 using SimpleSocialBoardServer.Areas.Member.Services;
@@ -6,8 +7,8 @@ using SimpleSocialBoardServer.Core.ViewModel;
 namespace SimpleSocialBoardServer.Areas.Member.Controllers
 {
 
-
-
+    // 將jwt授權套用至UserController
+    [Authorize]
     [Area("Member")]
     [Route("[area]/[controller]")]
     public class UserController(UserService userService, ILogger<UserController> logger) : ControllerBase
@@ -34,21 +35,6 @@ namespace SimpleSocialBoardServer.Areas.Member.Controllers
                 _logger.LogInformation("帳號 {Account} 註冊成功", dto.Account);
                 return Ok(ApiResponse<string>.Ok("註冊成功"));
         }
-
-        //登入
-        [HttpPost("Login")]
-        public IActionResult Login([FromBody] LoginDto dto)
-        {
-            // 這裡可以添加登入邏輯，例如驗證帳號和密碼
-            // 如果登入成功，返回 JWT 或其他認證令牌
-            var user = _userService.FindByAccountAsync(dto.Account).Result;
-            if (user == null || user.Password != dto.Password)
-            {
-                return Unauthorized(ApiResponse<string>.Fail("Error 401:帳號或密碼錯誤"));
-            }
-            return Ok(ApiResponse<string>.Ok("登入成功"));
-        }
-
 
         //取得使用者資訊
         [HttpGet("GetUserInfo")]
