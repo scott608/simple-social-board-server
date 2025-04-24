@@ -12,7 +12,7 @@ namespace SimpleSocialBoardServer.Core.auth.Controllers
 
 
     [Route("[controller]")]
-    public class AuthController (AuthService authService,UserService userService, ILogger<AuthController> logger) : ControllerBase
+    public class AuthController(AuthService authService, UserService userService, ILogger<AuthController> logger) : ControllerBase
     {
         private readonly UserService _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         private readonly AuthService _authService = authService ?? throw new ArgumentNullException(nameof(authService));
@@ -39,29 +39,37 @@ namespace SimpleSocialBoardServer.Core.auth.Controllers
                     JwtSettings.Jwt_Expire);
                 return Ok(ApiResponse<string>.Ok(token));
 
-            }else {
+            }
+            else
+            {
                 return Unauthorized(ApiResponse<string>.Fail("Error 401:帳號或密碼錯誤"));
             }
         }
 
-                //註冊
-        [HttpPost("Register")] 
-        public async Task<IActionResult> RegisterAsync([FromBody] UserDto dto)
+        //註冊
+        [HttpPost("Register")]
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto dto)
         {
-                if (!ModelState.IsValid)
-                {
-                    _logger.LogWarning("Error 400:註冊資料驗證失敗");
-                    return BadRequest(ApiResponse<string>.Fail("Error 400:註冊資料驗證失敗" + ModelState));
-                }
-                var success = await _authService.RegisterAsync(dto);
+            if (!ModelState.IsValid)
+            {
+                // 如果模型驗證失敗，返回錯誤訊息
+                var errors = ModelState.Values
+                                    .SelectMany(v => v.Errors)
+                                    .Select(e => e.ErrorMessage)
+                                    .ToList();
+                _logger.LogWarning("註冊失敗: {@errors}", errors);
 
-                if (success == null)
-                {
-                    _logger.LogWarning("Error 409:帳號 {Account} 已存在", dto.Account);
-                    return Conflict(ApiResponse<string>.Fail("帳號已存在"));
-                }
-                _logger.LogInformation("帳號 {Account} 註冊成功", dto.Account);
-                return Ok(ApiResponse<string>.Ok("註冊成功"));
+                return BadRequest(ApiResponse<string>.Fail("Error 400:註冊資料驗證失敗" + ModelState));
+            }
+            var success = await _authService.RegisterAsync(dto);
+
+            if (success == null)
+            {
+                _logger.LogWarning("Error 409:帳號 {Account} 已存在", dto.Account);
+                return Conflict(ApiResponse<string>.Fail("帳號已存在"));
+            }
+            _logger.LogInformation("帳號 {Account} 註冊成功", dto.Account);
+            return Ok(ApiResponse<string>.Ok("註冊成功"));
         }
 
     }

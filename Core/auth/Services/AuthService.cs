@@ -9,7 +9,7 @@ namespace SimpleSocialBoardServer.Core.auth.Services
     {
         private readonly MainDbContext _db = db ?? throw new ArgumentNullException(nameof(db));
 
-        public async Task<UserEntity?> RegisterAsync(UserDto dto)
+        public async Task<UserEntity?> RegisterAsync(RegisterDto dto)
         {
             // 檢查帳號是否存在
             var existingUser = await _db.Users
@@ -28,10 +28,8 @@ namespace SimpleSocialBoardServer.Core.auth.Services
                 Account = dto.Account,
                 Password = hashedPassword,
                 Name = dto.Name,
-                EnName = dto.EnName,
-                Phone = dto.Phone,
-                Address = dto.Address,
                 Email = dto.Email,
+                Birthday = dto.Birthday,
                 Gender= dto.Gender.ToString()
             };
 
