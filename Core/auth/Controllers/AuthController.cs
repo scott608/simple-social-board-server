@@ -44,6 +44,26 @@ namespace SimpleSocialBoardServer.Core.auth.Controllers
             }
         }
 
+                //註冊
+        [HttpPost("Register")] 
+        public async Task<IActionResult> RegisterAsync([FromBody] UserDto dto)
+        {
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogWarning("Error 400:註冊資料驗證失敗");
+                    return BadRequest(ApiResponse<string>.Fail("Error 400:註冊資料驗證失敗" + ModelState));
+                }
+                var success = await _authService.RegisterAsync(dto);
+
+                if (success == null)
+                {
+                    _logger.LogWarning("Error 409:帳號 {Account} 已存在", dto.Account);
+                    return Conflict(ApiResponse<string>.Fail("帳號已存在"));
+                }
+                _logger.LogInformation("帳號 {Account} 註冊成功", dto.Account);
+                return Ok(ApiResponse<string>.Ok("註冊成功"));
+        }
+
     }
 
 
