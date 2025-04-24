@@ -26,7 +26,8 @@ namespace SimpleSocialBoardServer.Core.auth.Controllers
             // 這裡可以添加登入邏輯，例如驗證帳號和密碼
             // 如果登入成功，返回 JWT 或其他認證令牌
             var user = _userService.FindByAccount(dto.Account).Result;
-            if (user != null && user.Password == dto.Password)
+            // 驗證帳號和密碼
+            if (user != null && BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
             {
                 //登入成功，回傳token
                 var token = JwtHelper.GenerateToken(
