@@ -1,7 +1,6 @@
-using SimpleSocialBoardServer.Areas.Member.Models.DTOs;
 using SimpleSocialBoardServer.Data;
-using SimpleSocialBoardServer.Areas.Member.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using SimpleSocialBoardServer.Core.Entities;
 
 namespace SimpleSocialBoardServer.Areas.Member.Services
 {

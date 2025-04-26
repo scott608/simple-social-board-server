@@ -1,11 +1,11 @@
-using SimpleSocialBoardServer.Areas.Member.Models.DTOs;
 using SimpleSocialBoardServer.Data;
-using SimpleSocialBoardServer.Areas.Member.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using SimpleSocialBoardServer.Core.Entities;
+using SimpleSocialBoardServer.Core.auth.Models;
 
 namespace SimpleSocialBoardServer.Core.auth.Services
 {
-      public class AuthService(MainDbContext db)
+    public class AuthService(MainDbContext db)
     {
         private readonly MainDbContext _db = db ?? throw new ArgumentNullException(nameof(db));
 
@@ -22,7 +22,7 @@ namespace SimpleSocialBoardServer.Core.auth.Services
             // 使用 BCrypt 加密密碼
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
             var user = new UserEntity
-            {  
+            {
                 //註冊時，帳號、密碼、姓名、英文姓名、電話、地址、信箱都必填
                 // 其他欄位可以選擇性填寫
                 Account = dto.Account,
@@ -30,7 +30,7 @@ namespace SimpleSocialBoardServer.Core.auth.Services
                 Name = dto.Name,
                 Email = dto.Email,
                 Birthday = dto.Birthday,
-                Gender= dto.Gender.ToString()
+                Gender = dto.Gender.ToString()
             };
 
             _db.Users.Add(user);

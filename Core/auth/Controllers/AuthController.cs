@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using SimpleSocialBoardServer.Areas.Member.Models.DTOs;
 using SimpleSocialBoardServer.Areas.Member.Services;
+using SimpleSocialBoardServer.Core.auth.Models;
 using SimpleSocialBoardServer.Core.auth.Services;
 using SimpleSocialBoardServer.Core.ViewModel;
 using SimpleSocialBoardServer.Settings;
@@ -59,7 +59,7 @@ namespace SimpleSocialBoardServer.Core.auth.Controllers
                                     .ToList();
                 _logger.LogWarning("註冊失敗: {@errors}", errors);
 
-                return BadRequest(ApiResponse<string>.Fail("Error 400:註冊資料驗證失敗" + ModelState));
+                return BadRequest(ApiResponse<string>.Fail("Error 400:註冊資料驗證失敗" + errors));
             }
             var success = await _authService.RegisterAsync(dto);
 

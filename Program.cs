@@ -8,16 +8,24 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SimpleSocialBoardServer.Core.auth.Services;
 using SimpleSocialBoardServer.Settings;
+using FluentValidation;
+using SimpleSocialBoardServer.Core.Validators;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //新增服務註冊， 只註冊 API Controlle
 // builder.Services.AddControllersWithViews();
-builder.Services.AddControllers().AddJsonOptions(opt =>
+builder.Services.AddControllers()
+.AddJsonOptions(opt =>
 {
     // 啟用 Enum 的字串轉換支援
     opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-});
+}) ;
+
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
+builder.Services.AddFluentValidationAutoValidation();  // 自動啟用 FluentValidation 驗證
+
 
 builder.Services.AddScoped<UserService>(); 
 builder.Services.AddScoped<AuthService>();

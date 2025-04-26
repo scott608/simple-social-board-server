@@ -1,5 +1,5 @@
 
-namespace SimpleSocialBoardServer.Areas.Member.Models.DTOs
+namespace SimpleSocialBoardServer.Core.auth.Models
 {
     public class LoginDto
     {

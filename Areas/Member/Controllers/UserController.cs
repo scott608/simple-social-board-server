@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimpleSocialBoardServer.Areas.Member.Models.DTOs;
 using SimpleSocialBoardServer.Areas.Member.Services;
-using SimpleSocialBoardServer.Core.ViewModel;
 
 namespace SimpleSocialBoardServer.Areas.Member.Controllers
 {

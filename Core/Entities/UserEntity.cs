@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SimpleSocialBoardServer.Areas.Member.Models.Entities
+namespace SimpleSocialBoardServer.Core.Entities
 {
     [Table("user")]
     public class UserEntity 
@@ -62,7 +62,6 @@ namespace SimpleSocialBoardServer.Areas.Member.Models.Entities
         // 出生日期
         public string Birthday { get; set; } = string.Empty;
 
-        [Required]
         [MaxLength(20)]
         [Column("idCard")]
         // 身分證字號

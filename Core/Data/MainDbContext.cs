@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SimpleSocialBoardServer.Areas.Member.Models.Entities;
+using SimpleSocialBoardServer.Core.Entities;
 
 
 namespace SimpleSocialBoardServer.Data
