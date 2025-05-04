@@ -102,7 +102,7 @@ var mainServer = Environment.GetEnvironmentVariable("Main_DB_Server");
 var mainDb = Environment.GetEnvironmentVariable("Main_DB_Name");
 var mainUser = Environment.GetEnvironmentVariable("Main_DB_user");
 var mainPassword = Environment.GetEnvironmentVariable("Main_DB_password");
-var mainConnStr  = $"server={mainServer};database={mainDb};user={mainUser};password={mainPassword};port=3306;";
+var mainConnStr  = $"server={mainServer};database={mainDb};user={mainUser};password={mainPassword};port=3306;SslMode=Required;Trust Server Certificate=true;";
 
 //註冊 DbContext
 builder.Services.AddDbContext<MainDbContext>(options =>
