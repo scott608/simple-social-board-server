@@ -42,7 +42,7 @@ namespace SimpleSocialBoardServer.Core.auth.Controllers
             }
             else
             {
-                return Unauthorized(ApiResponse<string>.Fail("Error 401:帳號或密碼錯誤"));
+                return BadRequest(ApiResponse<string>.Fail("Error 400:帳號或密碼錯誤"));
             }
         }
 
